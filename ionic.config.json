@@ -1,5 +1,7 @@
 {
   "name": "ControleCaixa",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
