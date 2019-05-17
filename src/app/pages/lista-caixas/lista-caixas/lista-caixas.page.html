@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Caixas Cadastrados</ion-title>
+    <ion-back-button></ion-back-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-list #lista>
+        <ion-item-sliding *ngFor="let caixa of caixas">
+          <ion-item>
+            {{ caixa.decricao }}
+    
+          <ion-item-options side="end">
+            <ion-item-option (click)="update(caixa)">
+              <ion-icon slot="icon-only" name="refresh"></ion-icon>
+            </ion-item-option>
+            <ion-item-option (click)="delete(caixa)">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+
+</ion-content>

@@ -8,6 +8,8 @@ import { Movimentacao } from '../../domains/movimentacao';
 })
 export class StorageService {
 
+  duplicado = false;
+
   constructor(private storage: Storage) { }
 
   getAll(KEY: string): Promise<any[]> {
@@ -66,6 +68,28 @@ export class StorageService {
         }
 
         return this.storage.set(KEY, toKeep);
+      });
+  }
+
+  ehDuplicado(KEY: string, desc: string): Promise<boolean> {
+
+    return this.storage
+      .get(KEY)
+      .then((items: any[]) => {
+        if (!items || items.length === 0) {
+          return;
+        }
+
+        for (const i of items) {
+          if (i.descricao === desc) {
+            this.duplicado = true;
+            break;
+          } else {
+            this.duplicado = false;
+          }
+        }
+
+        return this.duplicado;
       });
   }
 }

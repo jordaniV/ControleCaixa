@@ -13,21 +13,24 @@ export class HomePage {
   public caixa: Caixa;
 
   constructor(private alertCtrl: AlertController,
-              private toastCtrl: ToastController,
-              private storage: StorageService) { }
+    private toastCtrl: ToastController,
+    private storage: StorageService) { }
 
   async addCaixa() {
     const alert = await this.alertCtrl.create({
       header: 'Cadastro de Caixa',
       inputs: [
         {
-          name: 'Descrição',
-          type: 'text'
+          name: 'descricao',
+          type: 'text',
+          placeholder: 'Descrição'
+
         },
-      {
-        name: 'Saldo Inicial R$',
-        type: 'number'
-      }],
+        {
+          name: 'saldoInicial',
+          type: 'number',
+          placeholder: 'Saldo Inicial R$'
+        }],
       buttons: [
         {
           text: 'Fechar',
@@ -41,14 +44,26 @@ export class HomePage {
 
             result.id = Date.now();
 
-            this.storage
-                .add(result, 'caixas')
-                .then(() => {
-                  this.showToast('Caixa adicionado com sucesso!');
-                })
-                .catch((error: Error) => {
-                  this.showError(error);
+            if (result.descricao === '' || result.saldoInicial.toString().length === 0) {
+              this.showError('Os campos não podem ficar vazios!');
+            } else {
+              this.storage
+                .ehDuplicado('caixas', result.descricao)
+                .then(duplicado => {
+                  if (duplicado) {
+                    this.showError('Não pode existir dois caixas como mesmo nome!');
+                  } else {
+                    this.storage
+                      .add(result, 'caixas')
+                      .then(() => {
+                        this.showToast('Caixa adicionado com sucesso!');
+                      })
+                      .catch((error: Error) => {
+                        this.showError(error);
+                      });
+                  }
                 });
+            }
           }
         }
       ]
