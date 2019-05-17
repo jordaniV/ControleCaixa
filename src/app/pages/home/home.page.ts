@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, ToastController, NavController } from '@ionic/angular';
 import { Caixa } from 'src/app/domains/caixa';
 import { StorageService } from 'src/app/services/storage/storage.service';
 
@@ -13,8 +13,18 @@ export class HomePage {
   public caixa: Caixa;
 
   constructor(private alertCtrl: AlertController,
-    private toastCtrl: ToastController,
-    private storage: StorageService) { }
+              private toastCtrl: ToastController,
+              private navCtrl: NavController,
+              private storage: StorageService) { }
+
+
+  openMovimentacao() {
+    this.navCtrl.navigateForward('lista-movimentacoes');
+  }
+
+  openCaixa() {
+    this.navCtrl.navigateForward('lista-caixas');
+  }
 
   async addCaixa() {
     const alert = await this.alertCtrl.create({

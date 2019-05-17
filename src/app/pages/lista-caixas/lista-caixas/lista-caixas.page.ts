@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { StorageService } from './../../../services/storage/storage.service';
+import { Component, OnInit } from '@angular/core';
 import { IonList } from '@ionic/angular';
 import { Caixa } from 'src/app/domains/caixa';
 
@@ -9,13 +10,23 @@ import { Caixa } from 'src/app/domains/caixa';
 })
 export class ListaCaixasPage implements OnInit {
 
-  @ViewChild('lista') lista: IonList;
-
   caixas: Caixa[] = [];
 
-  constructor() { }
+  constructor(private storage: StorageService) { }
 
   ngOnInit() {
+    this.storage
+        .getAll('caixas')
+        .then((result: Caixa[]) => {
+          this.caixas = result;
+        });
   }
 
+  update(caixa: Caixa) {
+
+  }
+
+  delete(caixa: Caixa) {
+
+  }
 }
