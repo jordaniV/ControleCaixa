@@ -6,46 +6,41 @@
 
 <ion-content>
 
-  <form>
+  <form [formGroup]="movimentoForm" (ngSubmit)="add()">
 
     <ion-list>
       <ion-list-header>
         <ion-label position="stacked" color="primary">Tipo</ion-label>
       </ion-list-header>
       <ion-radio-group>
-        <ion-item>
-          <ion-label>Entrada</ion-label>
-          <ion-radio value="E"></ion-radio>
-        </ion-item>
-        <ion-item>
-          <ion-label>Saída</ion-label>
-          <ion-radio value="S"></ion-radio>
+        <ion-item *ngFor="let tipo of tipos">
+          <ion-label>{{ tipo.desc }}</ion-label>
+          <ion-radio formControlName="tipo" checked="{{ tipo.checked }}"></ion-radio>
         </ion-item>
       </ion-radio-group>
     </ion-list>
 
     <ion-item>
       <ion-label position="stacked" color="primary">Descrição</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input formControlName="descricao" type="text"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked" color="primary">Valor</ion-label>
-      <ion-input type="number"></ion-input>
+      <ion-input formControlName="valor" type="number"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked" color="primary">Data</ion-label>
-      <ion-datetime displayFormat="DD/MM/YYYY"></ion-datetime>
+      <ion-datetime formControlName="data" cancel-text="Fechar" done-text="Ok" placeholder="Selecione a data" pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY"></ion-datetime>
     </ion-item>
-    <ion-item>
+    <!--<ion-item>
       <ion-label position="stacked" color="primary">Caixa</ion-label>
       <ion-select placeholder="Selecione o caixa" interface="popover">
-        <ion-select-option value="caixa1">Caixa 1</ion-select-option>
-        <ion-select-option value="caixa2">Caixa 2</ion-select-option>
+        <ion-select-option *ngFor="let caixa of caixas" formControlName="caixa">{{ caixa.descricao }}</ion-select-option>
       </ion-select>
-    </ion-item>|
+    </ion-item>-->
 
     <br>
-    <ion-button expand="block" type="submit">Cadastrar</ion-button>
+    <ion-button expand="block" type="submit" [disabled]="movimentoForm.invalid">Cadastrar</ion-button>
     
     <ion-button expand="block" (click)="fechar()">Fechar</ion-button>
 
