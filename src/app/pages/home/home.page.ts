@@ -34,58 +34,6 @@ export class HomePage {
       component: ModalCaixaPage
     });
     await modal.present();
-    /*const alert = await this.alertCtrl.create({
-      header: 'Cadastro de Caixa',
-      inputs: [
-        {
-          name: 'descricao',
-          type: 'text',
-          placeholder: 'Descrição'
-
-        },
-        {
-          name: 'saldoInicial',
-          type: 'number',
-          placeholder: 'Saldo Inicial R$'
-        }],
-      buttons: [
-        {
-          text: 'Fechar',
-          role: 'fechar',
-          handler: () => { return; }
-        },
-        {
-          text: 'Cadastrar',
-          role: 'cadastrar',
-          handler: (result: Caixa) => {
-
-            result.id = Date.now();
-
-            if (result.descricao === '' || result.saldoInicial.toString().length === 0) {
-              this.showError('Os campos não podem ficar vazios!');
-            } else {
-              this.storage
-                .ehDuplicado('caixas', result.descricao)
-                .then(duplicado => {
-                  if (duplicado) {
-                    this.showError('Não pode existir dois caixas como mesmo nome!');
-                  } else {
-                    this.storage
-                      .add(result, 'caixas')
-                      .then(() => {
-                        this.showToast('Caixa adicionado com sucesso!');
-                      })
-                      .catch((error: Error) => {
-                        this.showError(error);
-                      });
-                  }
-                });
-            }
-          }
-        }
-      ]
-    });
-    alert.present();*/
   }
 
   async showToast(msj) {

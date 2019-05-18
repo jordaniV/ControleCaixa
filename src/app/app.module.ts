@@ -14,7 +14,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { StorageService } from './services/storage/storage.service';
 
 import { ReactiveFormsModule} from '@angular/forms';
-import { BrMaskerModule } from 'br-mask';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,8 +25,7 @@ import { BrMaskerModule } from 'br-mask';
     AppRoutingModule,
     IonicStorageModule.forRoot(),
     ModalCaixaPageModule,
-    ReactiveFormsModule,
-    BrMaskerModule],
+    ReactiveFormsModule],
   providers: [
     StatusBar,
     SplashScreen,

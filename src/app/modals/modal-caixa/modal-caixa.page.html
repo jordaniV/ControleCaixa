@@ -6,14 +6,15 @@
 
 <ion-content>
 
-  <form [formGroup]="caixaForm">
+  <form [formGroup]="caixaForm" (ngSubmit)="add()">
+
     <ion-item>
       <ion-label position="stacked">Descrição</ion-label>
       <ion-input type="text" formControlName="descricao"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Saldo Inicial</ion-label>
-      <ion-input type="number" [brmasker]="{moneyInitHasInt: true, thousand: '.',  decimalCaracter: ',', decimal: '2'}" formControlName="saldoInicial"></ion-input>
+      <ion-input type="number" formControlName="saldoInicial"></ion-input>
     </ion-item>
 
     <br>

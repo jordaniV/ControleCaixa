@@ -1,6 +1,6 @@
 import { StorageService } from './../../../services/storage/storage.service';
 import { Component, OnInit } from '@angular/core';
-import { IonList } from '@ionic/angular';
+import { IonList, ToastController, AlertController } from '@ionic/angular';
 import { Caixa } from 'src/app/domains/caixa';
 
 @Component({
@@ -12,21 +12,95 @@ export class ListaCaixasPage implements OnInit {
 
   caixas: Caixa[] = [];
 
-  constructor(private storage: StorageService) { }
+  constructor(private storage: StorageService,
+              private toastCtrl: ToastController,
+              private alertCtrl: AlertController) { }
 
   ngOnInit() {
     this.storage
-        .getAll('caixas')
-        .then((result: Caixa[]) => {
-          this.caixas = result;
-        });
+      .getAll('caixas')
+      .then((result: Caixa[]) => {
+        this.caixas = result;
+      });
   }
 
-  update(caixa: Caixa) {
+  async update(caixa: Caixa) {
+
+    const alert = await this.alertCtrl.create({
+      header: 'Atualização de Caixa',
+      inputs: [
+        {
+          name: 'Descrição',
+          type: 'text',
+          value: caixa.descricao
+        },
+        {
+          name: 'saldoInicial',
+          type: 'number',
+          value: caixa.saldoInicial
+        }
+      ],
+      buttons: [
+        {
+          text: 'Fechar',
+          role: 'fechar',
+          handler: () => { return; }
+        },
+        {
+          text: 'Atualizar',
+          role: 'atualizar',
+          handler: (data: Caixa) => {
+
+            data.id = caixa.id;
+
+            this.storage
+              .update(data, 'caixas')
+              .then(() => {
+                this.showToast('Caixa atualizado com sucesso!');
+                this.refresh();
+              })
+              .catch((error) => {
+                this.showError(error);
+              });
+          }
+        }
+      ]
+    });
+    await alert.present();
+
+
 
   }
 
   delete(caixa: Caixa) {
 
+  }
+
+  refresh() {
+
+    this.storage
+      .getAll('caixas')
+      .then((result: Caixa[]) => {
+        this.caixas = result;
+      })
+      .catch((error) => { this.showError(error); });
+
+  }
+
+  async showToast(msj) {
+    const toast = await this.toastCtrl.create({
+      message: msj,
+      duration: 1500
+    });
+    toast.present();
+  }
+
+  async showError(error) {
+    const alert = await this.alertCtrl.create({
+      header: 'Erro',
+      subHeader: error,
+      buttons: ['Fechar']
+    });
+    alert.present();
   }
 }

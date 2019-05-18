@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ModalCaixaPage } from './modal-caixa.page';
-import { BrMaskerModule } from 'br-mask';
 
 const routes: Routes = [
   {
@@ -20,7 +19,6 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     IonicModule,
-    BrMaskerModule,
     RouterModule.forChild(routes)
   ],
   declarations: [ModalCaixaPage]
