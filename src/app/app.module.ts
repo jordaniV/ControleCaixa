@@ -13,13 +13,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { StorageService } from './services/storage/storage.service';
 
-import { ReactiveFormsModule, FormsModule} from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms';
+import { BrMaskerModule } from 'br-mask';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot(),
-  ModalCaixaPageModule, ReactiveFormsModule, FormsModule,],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    IonicStorageModule.forRoot(),
+    ModalCaixaPageModule,
+    ReactiveFormsModule,
+    BrMaskerModule],
   providers: [
     StatusBar,
     SplashScreen,

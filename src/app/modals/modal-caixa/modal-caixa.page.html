@@ -6,21 +6,20 @@
 
 <ion-content>
 
-  <form [formGroup]="form" (ngSubmit)="add()">
+  <form [formGroup]="caixaForm">
     <ion-item>
       <ion-label position="stacked">Descrição</ion-label>
       <ion-input type="text" formControlName="descricao"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Saldo Inicial</ion-label>
-      <ion-input type="number" formControlName="saldoInicial" ></ion-input>
+      <ion-input type="number" [brmasker]="{moneyInitHasInt: true, thousand: '.',  decimalCaracter: ',', decimal: '2'}" formControlName="saldoInicial"></ion-input>
     </ion-item>
-  </form>
 
-  <br>
-  <ion-button expand="block" type="submit" [disabled]="form.invalid">Cadastrar</ion-button>
-  <br>
-  <ion-button expand="block">Fechar</ion-button>
+    <br>
+    <ion-button expand="block" type="submit" [disabled]="caixaForm.invalid">Cadastrar</ion-button>
+    <br>
+    <ion-button expand="block" (click)="fechar()">Fechar</ion-button>
   </form>
 
 </ion-content>
