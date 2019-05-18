@@ -15,7 +15,7 @@
       <ion-radio-group>
         <ion-item *ngFor="let tipo of tipos">
           <ion-label>{{ tipo.desc }}</ion-label>
-          <ion-radio formControlName="tipo" checked="{{ tipo.checked }}"></ion-radio>
+          <ion-radio formControlName="tipo" value="{{ tipo.valor }}"></ion-radio>
         </ion-item>
       </ion-radio-group>
     </ion-list>
@@ -32,12 +32,12 @@
       <ion-label position="stacked" color="primary">Data</ion-label>
       <ion-datetime formControlName="data" cancel-text="Fechar" done-text="Ok" placeholder="Selecione a data" pickerFormat="DD/MM/YYYY" displayFormat="DD/MM/YYYY"></ion-datetime>
     </ion-item>
-    <!--<ion-item>
+    <ion-item>
       <ion-label position="stacked" color="primary">Caixa</ion-label>
       <ion-select placeholder="Selecione o caixa" interface="popover">
-        <ion-select-option *ngFor="let caixa of caixas" formControlName="caixa">{{ caixa.descricao }}</ion-select-option>
+        <ion-select-option *ngFor="let caixa of caixas" formControlName="caixa" value="{{ caixa.descricao }}">{{ caixa.descricao }}</ion-select-option>
       </ion-select>
-    </ion-item>-->
+    </ion-item>
 
     <br>
     <ion-button expand="block" type="submit" [disabled]="movimentoForm.invalid">Cadastrar</ion-button>

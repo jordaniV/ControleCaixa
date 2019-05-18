@@ -14,16 +14,14 @@ export class ModalMovimentoPage implements OnInit {
   movimentoForm: FormGroup;
 
   caixas: Caixa[];
-  tipos: [
+  tipos = [
     {
       desc: 'Entrada',
-      valor: 'E',
-      checked: 'true'
+      valor: 'E'
     },
     {
       desc: 'Saída',
-      valor: 'S',
-      checked: 'false'
+      valor: 'S'
     }
   ];
 
