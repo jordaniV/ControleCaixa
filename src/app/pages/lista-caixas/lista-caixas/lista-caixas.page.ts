@@ -1,5 +1,5 @@
 import { StorageService } from './../../../services/storage/storage.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonList, ToastController, AlertController } from '@ionic/angular';
 import { Caixa } from 'src/app/domains/caixa';
 
@@ -12,16 +12,16 @@ export class ListaCaixasPage implements OnInit {
 
   caixas: Caixa[] = [];
 
+  @ViewChild('lista') lista: IonList;
+
   constructor(private storage: StorageService,
               private toastCtrl: ToastController,
               private alertCtrl: AlertController) { }
 
-  ngOnInit() {
-    this.storage
-      .getAll('caixas')
-      .then((result: Caixa[]) => {
-        this.caixas = result;
-      });
+  ngOnInit() { }
+
+  ionViewWillEnter() {
+    this.refresh();
   }
 
   async update(caixa: Caixa) {
@@ -30,7 +30,7 @@ export class ListaCaixasPage implements OnInit {
       header: 'Atualização de Caixa',
       inputs: [
         {
-          name: 'Descrição',
+          name: 'descricao',
           type: 'text',
           value: caixa.descricao
         },
@@ -57,6 +57,7 @@ export class ListaCaixasPage implements OnInit {
               .update(data, 'caixas')
               .then(() => {
                 this.showToast('Caixa atualizado com sucesso!');
+                this.lista.closeSlidingItems();
                 this.refresh();
               })
               .catch((error) => {
@@ -72,12 +73,36 @@ export class ListaCaixasPage implements OnInit {
 
   }
 
-  delete(caixa: Caixa) {
+  async delete(caixa: Caixa) {
 
+    const alert1 = await this.alertCtrl.create({
+      header: 'Aviso',
+      subHeader: 'Deseja excluir o caixa permanentemente?',
+      buttons: [
+        {
+          text: 'Não',
+          role: 'nao',
+          handler: () => { return; }
+        },
+        {
+          text: 'Sim',
+          role: 'sim',
+          handler: () => {
+            this.storage.delete(caixa.id, 'caixas').then(() => {
+              this.showToast('Caixa excluído');
+              this.lista.closeSlidingItems();
+              this.refresh();
+            });
+          }
+        }
+      ]
+    });
+
+    alert1.present();
   }
 
   refresh() {
-
+    this.caixas = [];
     this.storage
       .getAll('caixas')
       .then((result: Caixa[]) => {

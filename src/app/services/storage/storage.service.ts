@@ -12,8 +12,12 @@ export class StorageService {
 
   constructor(private storage: Storage) { }
 
-  getAll(KEY: string): Promise<any[]> {
-    return this.storage.get(KEY);
+  getAll(KEY: string): Promise<any> {
+    return this.storage
+              .get(KEY)
+              .then((items: Caixa[]) => {
+                return items;
+              });
   }
 
   add(array: any, KEY: string): Promise<any> {

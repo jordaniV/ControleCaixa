@@ -8,6 +8,7 @@ const routes: Routes = [
   // tslint:disable-next-line:max-line-length
   { path: 'lista-movimentacoes', loadChildren: './pages/lista-movimentacoes/lista-movimentacoes/lista-movimentacoes.module#ListaMovimentacoesPageModule' },
   { path: 'modal-caixa', loadChildren: './modals/modal-caixa/modal-caixa.module#ModalCaixaPageModule' },
+  { path: 'modal-movimento', loadChildren: './modals/modal-movimento/modal-movimento.module#ModalMovimentoPageModule' },
 ];
 
 @NgModule({

@@ -14,6 +14,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { StorageService } from './services/storage/storage.service';
 
 import { ReactiveFormsModule} from '@angular/forms';
+import { ModalMovimentoPageModule } from './modals/modal-movimento/modal-movimento.module';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { ReactiveFormsModule} from '@angular/forms';
     AppRoutingModule,
     IonicStorageModule.forRoot(),
     ModalCaixaPageModule,
+    ModalMovimentoPageModule,
     ReactiveFormsModule],
   providers: [
     StatusBar,

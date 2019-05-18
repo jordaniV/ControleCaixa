@@ -1,3 +1,4 @@
+import { ModalMovimentoPage } from './../../modals/modal-movimento/modal-movimento.page';
 import { ModalCaixaPage } from './../../modals/modal-caixa/modal-caixa.page';
 import { Component } from '@angular/core';
 import { AlertController, ToastController, NavController, ModalController } from '@ionic/angular';
@@ -34,6 +35,14 @@ export class HomePage {
       component: ModalCaixaPage
     });
     await modal.present();
+  }
+
+  async addMovimento() {
+
+    const modal1 = await this.modalCtrl.create({
+      component: ModalMovimentoPage
+    });
+    await modal1.present();
   }
 
   async showToast(msj) {

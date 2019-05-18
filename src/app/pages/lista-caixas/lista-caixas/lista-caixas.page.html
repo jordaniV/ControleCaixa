@@ -9,11 +9,11 @@
 
 <ion-content>
 
-  <ion-list>
+  <ion-list #lista>
       <ion-item *ngFor="let caixa of caixas">
         <ion-label>
-          <h2>{{ caixa.descricao}}</h2>
-          <p>Saldo Inicial R$: {{ caixa.saldoInicial }}</p>
+          <h2>{{ caixa.descricao }}</h2>
+          <p>Inicial R$: {{ caixa.saldoInicial }}</p>
         </ion-label>
 
         <ion-button fill="clear" slot="end" (click)="update(caixa)">

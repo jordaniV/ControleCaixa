@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cadastro Movimentações</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form>
+
+    <ion-list>
+      <ion-list-header>
+        <ion-label position="stacked" color="primary">Tipo</ion-label>
+      </ion-list-header>
+      <ion-radio-group>
+        <ion-item>
+          <ion-label>Entrada</ion-label>
+          <ion-radio value="E"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Saída</ion-label>
+          <ion-radio value="S"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+
+    <ion-item>
+      <ion-label position="stacked" color="primary">Descrição</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" color="primary">Valor</ion-label>
+      <ion-input type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" color="primary">Data</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" color="primary">Caixa</ion-label>
+      <ion-select placeholder="Selecione o caixa" interface="popover">
+        <ion-select-option value="caixa1">Caixa 1</ion-select-option>
+        <ion-select-option value="caixa2">Caixa 2</ion-select-option>
+      </ion-select>
+    </ion-item>|
+
+    <br>
+    <ion-button expand="block" type="submit">Cadastrar</ion-button>
+    
+    <ion-button expand="block" (click)="fechar()">Fechar</ion-button>
+
+  </form>
+
+</ion-content>
