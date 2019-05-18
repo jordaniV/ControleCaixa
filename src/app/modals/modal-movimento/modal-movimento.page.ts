@@ -1,6 +1,6 @@
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController, AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Caixa } from 'src/app/domains/caixa';
 
@@ -26,6 +26,8 @@ export class ModalMovimentoPage implements OnInit {
   ];
 
   constructor(private modalCtrl: ModalController,
+              private toastCtrl: ToastController,
+              private alertCtrl: AlertController,
               private formBuilder: FormBuilder,
               private storage: StorageService) {
     this.movimentoForm = this.formBuilder.group({
@@ -45,11 +47,48 @@ export class ModalMovimentoPage implements OnInit {
   }
 
   add() {
+    const formMovimento = this.movimentoForm.value;
+    this.storage
+      .ehDuplicado('movimentos', formMovimento.descricao)
+      .then(duplicado => {
+        if (duplicado) {
+          this.showError('Não pode existir dois movimentos como mesmo nome!');
+        } else {
+
+          formMovimento.id = Date.now();
+          this.storage
+            .add(formMovimento, 'movimentos')
+            .then(() => {
+              this.showToast('Movimento adicionado com sucesso!');
+              this.fechar();
+            })
+            .catch((error: Error) => {
+              this.showError(error);
+            });
+        }
+      });
 
   }
 
   fechar() {
     this.modalCtrl.dismiss();
+  }
+
+  async showToast(msj) {
+    const toast = await this.toastCtrl.create({
+      message: msj,
+      duration: 1500
+    });
+    toast.present();
+  }
+
+  async showError(error) {
+    const alert = await this.alertCtrl.create({
+      header: 'Erro',
+      subHeader: error,
+      buttons: ['Fechar']
+    });
+    alert.present();
   }
 
 }
