@@ -1,9 +1,33 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>lista-movimentacoes</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Movimentos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+    <ion-list #lista>
+        <ion-item *ngFor="let movimento of movimentos">
+          <ion-label>
+            <h2>{{ movimento.descricao }}</h2>
+            <p>Tipo: {{ movimento.tipo }}</p>
+            <p>Valor: {{ movimento.valor }}</p>
+            <p>Data: {{ movimento.data }}</p>
+            <p>Caixa: {{ movimento.caixa }}</p>
+          </ion-label>
+  
+          <ion-button fill="clear" slot="end" (click)="update(movimento)">
+            <ion-icon slot="icon-only" name="refresh"></ion-icon>
+          </ion-button>
+  
+          <ion-button fill="clear" slot="end" (click)="delete(movimento)">
+            <ion-icon slot="icon-only" color="danger" name="trash"></ion-icon>
+          </ion-button>
+  
+        </ion-item>
+    </ion-list>
 
 </ion-content>

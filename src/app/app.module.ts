@@ -15,7 +15,7 @@ import { StorageService } from './services/storage/storage.service';
 
 import { ReactiveFormsModule} from '@angular/forms';
 import { ModalMovimentoPageModule } from './modals/modal-movimento/modal-movimento.module';
-
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +32,7 @@ import { ModalMovimentoPageModule } from './modals/modal-movimento/modal-movimen
     StatusBar,
     SplashScreen,
     StorageService,
+    DatePipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

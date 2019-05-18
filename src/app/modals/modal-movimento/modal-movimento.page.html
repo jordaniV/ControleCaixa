@@ -8,18 +8,13 @@
 
   <form [formGroup]="movimentoForm" (ngSubmit)="add()">
 
-    <ion-list>
-      <ion-list-header>
-        <ion-label position="stacked" color="primary">Tipo</ion-label>
-      </ion-list-header>
-      <ion-radio-group>
-        <ion-item *ngFor="let tipo of tipos">
-          <ion-label>{{ tipo.desc }}</ion-label>
-          <ion-radio formControlName="tipo" value="{{ tipo.valor }}"></ion-radio>
-        </ion-item>
-      </ion-radio-group>
-    </ion-list>
-
+    <ion-item>
+      <ion-label position="stacked" color="primary">Tipo</ion-label>
+      <ion-select formControlName="tipo" placeholder="Selecione o tipo" interface="popover">
+        <ion-select-option ngDefaultControl *ngFor="let t of tipos" value="{{ t.valor }}">{{ t.desc }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
     <ion-item>
       <ion-label position="stacked" color="primary">Descrição</ion-label>
       <ion-input formControlName="descricao" type="text"></ion-input>
@@ -30,12 +25,14 @@
     </ion-item>
     <ion-item>
       <ion-label position="stacked" color="primary">Data</ion-label>
-      <ion-datetime formControlName="data" cancel-text="Fechar" done-text="Ok" placeholder="Selecione a data" picker-format="DD/MM/YYYY" display-format="DD/MM/YYYY"></ion-datetime>
+      <ion-datetime formControlName="data" cancel-text="Fechar" done-text="Ok" placeholder="Selecione a data"
+        displayFormat="DD/MM/YYYY"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label position="stacked" color="primary">Caixa</ion-label>
       <ion-select formControlName="caixa" placeholder="Selecione o caixa" interface="popover">
-        <ion-select-option ngDefaultControl *ngFor="let caixa of caixas" value="{{ caixa.descricao }}">{{ caixa.descricao }}</ion-select-option>
+        <ion-select-option ngDefaultControl *ngFor="let caixa of caixas" value="{{ caixa.descricao }}">
+          {{ caixa.descricao }}</ion-select-option>
       </ion-select>
     </ion-item>
 

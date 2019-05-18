@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { ModalController, ToastController, AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Caixa } from 'src/app/domains/caixa';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-modal-movimento',
@@ -29,7 +30,8 @@ export class ModalMovimentoPage implements OnInit {
               private toastCtrl: ToastController,
               private alertCtrl: AlertController,
               private formBuilder: FormBuilder,
-              private storage: StorageService) {
+              private storage: StorageService,
+              private datepipe: DatePipe) {
     this.movimentoForm = this.formBuilder.group({
       tipo: new FormControl('', Validators.required),
       descricao: new FormControl('', Validators.required),
@@ -56,6 +58,9 @@ export class ModalMovimentoPage implements OnInit {
         } else {
 
           formMovimento.id = Date.now();
+          const data = this.datepipe.transform(formMovimento.data, 'dd/MM/yyyy');
+          formMovimento.data = data;
+
           this.storage
             .add(formMovimento, 'movimentos')
             .then(() => {
