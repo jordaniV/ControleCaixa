@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cadastro de Caixa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="form" (ngSubmit)="add()">
+    <ion-item>
+      <ion-label position="stacked">Descrição</ion-label>
+      <ion-input type="text" formControlName="descricao"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Saldo Inicial</ion-label>
+      <ion-input type="number" formControlName="saldoInicial" ></ion-input>
+    </ion-item>
+  </form>
+
+  <br>
+  <ion-button expand="block" type="submit" [disabled]="form.invalid">Cadastrar</ion-button>
+  <br>
+  <ion-button expand="block">Fechar</ion-button>
+  </form>
+
+</ion-content>

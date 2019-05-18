@@ -1,5 +1,6 @@
+import { ModalCaixaPage } from './../../modals/modal-caixa/modal-caixa.page';
 import { Component } from '@angular/core';
-import { AlertController, ToastController, NavController } from '@ionic/angular';
+import { AlertController, ToastController, NavController, ModalController } from '@ionic/angular';
 import { Caixa } from 'src/app/domains/caixa';
 import { StorageService } from 'src/app/services/storage/storage.service';
 
@@ -14,6 +15,7 @@ export class HomePage {
 
   constructor(private alertCtrl: AlertController,
               private toastCtrl: ToastController,
+              private modalCtrl: ModalController,
               private navCtrl: NavController,
               private storage: StorageService) { }
 
@@ -27,7 +29,12 @@ export class HomePage {
   }
 
   async addCaixa() {
-    const alert = await this.alertCtrl.create({
+
+    const modal = await this.modalCtrl.create({
+      component: ModalCaixaPage
+    });
+    await modal.present();
+    /*const alert = await this.alertCtrl.create({
       header: 'Cadastro de Caixa',
       inputs: [
         {
@@ -78,7 +85,7 @@ export class HomePage {
         }
       ]
     });
-    alert.present();
+    alert.present();*/
   }
 
   async showToast(msj) {
