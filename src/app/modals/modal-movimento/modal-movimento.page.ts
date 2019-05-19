@@ -30,19 +30,20 @@ export class ModalMovimentoPage implements OnInit {
     }
   ];
 
-  constructor(private navParams: NavParams,
-              private modalCtrl: ModalController,
-              private toastCtrl: ToastController,
-              private alertCtrl: AlertController,
-              private formBuilder: FormBuilder,
-              private storage: StorageService,
-              private datepipe: DatePipe) {
+  constructor(
+    private navParams: NavParams,
+    private modalCtrl: ModalController,
+    private toastCtrl: ToastController,
+    private alertCtrl: AlertController,
+    private formBuilder: FormBuilder,
+    private storage: StorageService) {
     this.movimentoForm = this.formBuilder.group({
       tipo: new FormControl('', Validators.required),
       descricao: new FormControl('', Validators.required),
       valor: new FormControl('', Validators.required),
       data: new FormControl('', Validators.required),
-      caixa: new FormControl('', Validators.required)
+      caixa: new FormControl('', Validators.required),
+      id: new FormControl()
     });
   }
 
@@ -60,26 +61,41 @@ export class ModalMovimentoPage implements OnInit {
       this.movimentoForm.get('valor').setValue(this.movimento.valor);
       this.movimentoForm.get('data').setValue(this.movimento.data);
       this.movimentoForm.get('caixa').setValue(this.movimento.caixa);
+      this.movimentoForm.get('id').setValue(this.movimento.id);
       this.ehupdate = true;
     }
   }
 
   add() {
     const formMovimento = this.movimentoForm.value;
+    // const data = this.datepipe.transform(formMovimento.data, 'dd/MM/yyyy');
+    // formMovimento.data = data;
+    console.log(formMovimento);
 
-    formMovimento.id = Date.now();
-    const data = this.datepipe.transform(formMovimento.data, 'dd/MM/yyyy');
-    formMovimento.data = data;
+    if (this.ehupdate) {
+      this.storage
+        .update(formMovimento, 'movimentacoes')
+        .then(() => {
+          this.showToast('Movimentação atualizada com sucesso!');
+          this.fechar();
+        })
+        .catch((error: Error) => {
+          this.showError(error);
+        });
+    } else {
+      formMovimento.id = Date.now();
+      this.storage
+        .add(formMovimento, 'movimentacoes')
+        .then(() => {
+          this.showToast('Movimentação adicionada com sucesso!');
+          this.fechar();
+        })
+        .catch((error: Error) => {
+          this.showError(error);
+        });
+    }
 
-    this.storage
-      .add(formMovimento, 'movimentacoes')
-      .then(() => {
-        this.showToast('Movimentação adicionada com sucesso!');
-        this.fechar();
-      })
-      .catch((error: Error) => {
-        this.showError(error);
-      });
+    this.ehupdate = false;
 
   }
 

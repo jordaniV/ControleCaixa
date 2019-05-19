@@ -9,25 +9,26 @@
 
 <ion-content>
 
-    <ion-list #lista>
-        <ion-item *ngFor="let movimento of movimentos">
-          <ion-label>
-            <h2>{{ movimento.descricao }}</h2>
-            <p>Tipo: {{ movimento.tipo }}</p>
-            <p>Valor: {{ movimento.valor }}</p>
-            <p>Data: {{ movimento.data }}</p>
-            <p>Caixa: {{ movimento.caixa }}</p>
-          </ion-label>
-  
-          <ion-button fill="clear" slot="end" (click)="update(movimento)">
-            <ion-icon slot="icon-only" name="refresh"></ion-icon>
-          </ion-button>
-  
-          <ion-button fill="clear" slot="end" (click)="delete(movimento)">
-            <ion-icon slot="icon-only" color="danger" name="trash"></ion-icon>
-          </ion-button>
-  
-        </ion-item>
-    </ion-list>
+  <ion-list #lista>
+    <ion-item *ngFor="let movimento of movimentos">
+      <ion-label>
+        <h2>{{ movimento.descricao }}</h2>
+        <p>Tipo: {{ movimento.tipo }}</p>
+        <p>Valor: {{ movimento.valor }}</p>
+        <p>Data: {{ movimento.data | date: 'dd/MM/yyyy' }}</p>
+        <p>Caixa: {{ movimento.caixa }}
+          <p>ID: {{ movimento.id }}</p>
+      </ion-label>
+
+      <ion-button fill="clear" slot="end" (click)="update(movimento)">
+        <ion-icon slot="icon-only" name="refresh"></ion-icon>
+      </ion-button>
+
+      <ion-button fill="clear" slot="end" (click)="delete(movimento)">
+        <ion-icon slot="icon-only" color="danger" name="trash"></ion-icon>
+      </ion-button>
+
+    </ion-item>
+  </ion-list>
 
 </ion-content>

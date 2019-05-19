@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Movimentacao } from './../../../domains/movimentacao';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonList, ToastController, AlertController, ModalController } from '@ionic/angular';
@@ -19,8 +18,7 @@ export class ListaMovimentacoesPage implements OnInit {
   constructor(private storage: StorageService,
               private toastCtrl: ToastController,
               private alertCtrl: AlertController,
-              private modalCtrl: ModalController,
-              private datepipe: DatePipe) { }
+              private modalCtrl: ModalController) { this.refresh(); }
 
   ngOnInit() {}
 
@@ -29,7 +27,7 @@ export class ListaMovimentacoesPage implements OnInit {
   }
 
   refresh() {
-    this.movimentos = [];
+    // this.movimentos = [];
     this.storage
       .getAll('movimentacoes')
       .then((result: Movimentacao[]) => {
