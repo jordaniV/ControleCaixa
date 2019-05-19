@@ -1,6 +1,7 @@
+import { Movimentacao } from './../../domains/movimentacao';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { ModalController, ToastController, AlertController } from '@ionic/angular';
+import { ModalController, ToastController, AlertController, NavParams } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Caixa } from 'src/app/domains/caixa';
 import { DatePipe } from '@angular/common';
@@ -14,7 +15,10 @@ export class ModalMovimentoPage implements OnInit {
 
   movimentoForm: FormGroup;
 
+  movimento: Movimentacao;
   caixas: Caixa[];
+  ehupdate = false;
+
   tipos = [
     {
       desc: 'Entrada',
@@ -26,7 +30,8 @@ export class ModalMovimentoPage implements OnInit {
     }
   ];
 
-  constructor(private modalCtrl: ModalController,
+  constructor(private navParams: NavParams,
+              private modalCtrl: ModalController,
               private toastCtrl: ToastController,
               private alertCtrl: AlertController,
               private formBuilder: FormBuilder,
@@ -46,34 +51,38 @@ export class ModalMovimentoPage implements OnInit {
       .then((result: Caixa[]) => {
         this.caixas = result;
       });
+
+    this.movimento = this.navParams.get('registro');
+    console.log(this.movimento);
+    if (this.movimento !== undefined) {
+      this.movimentoForm.get('tipo').setValue(this.movimento.tipo);
+      this.movimentoForm.get('descricao').setValue(this.movimento.descricao);
+      this.movimentoForm.get('valor').setValue(this.movimento.valor);
+      this.movimentoForm.get('data').setValue(this.movimento.data);
+      this.movimentoForm.get('caixa').setValue(this.movimento.caixa);
+      this.ehupdate = true;
+    }
   }
 
   add() {
     const formMovimento = this.movimentoForm.value;
+
+    formMovimento.id = Date.now();
+    const data = this.datepipe.transform(formMovimento.data, 'dd/MM/yyyy');
+    formMovimento.data = data;
+
     this.storage
-      .ehDuplicado('movimentos', formMovimento.descricao)
-      .then(duplicado => {
-        if (duplicado) {
-          this.showError('Não pode existir dois movimentos como mesmo nome!');
-        } else {
-
-          formMovimento.id = Date.now();
-          const data = this.datepipe.transform(formMovimento.data, 'dd/MM/yyyy');
-          formMovimento.data = data;
-
-          this.storage
-            .add(formMovimento, 'movimentos')
-            .then(() => {
-              this.showToast('Movimento adicionado com sucesso!');
-              this.fechar();
-            })
-            .catch((error: Error) => {
-              this.showError(error);
-            });
-        }
+      .add(formMovimento, 'movimentacoes')
+      .then(() => {
+        this.showToast('Movimentação adicionada com sucesso!');
+        this.fechar();
+      })
+      .catch((error: Error) => {
+        this.showError(error);
       });
 
   }
+
 
   fechar() {
     this.modalCtrl.dismiss();

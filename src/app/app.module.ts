@@ -13,7 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { StorageService } from './services/storage/storage.service';
 
-import { ReactiveFormsModule} from '@angular/forms';
+import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { ModalMovimentoPageModule } from './modals/modal-movimento/modal-movimento.module';
 import { DatePipe } from '@angular/common';
 
@@ -27,7 +27,8 @@ import { DatePipe } from '@angular/common';
     IonicStorageModule.forRoot(),
     ModalCaixaPageModule,
     ModalMovimentoPageModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+    FormsModule],
   providers: [
     StatusBar,
     SplashScreen,

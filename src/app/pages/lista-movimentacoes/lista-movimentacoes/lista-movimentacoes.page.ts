@@ -1,7 +1,9 @@
+import { DatePipe } from '@angular/common';
 import { Movimentacao } from './../../../domains/movimentacao';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonList, ToastController, AlertController } from '@ionic/angular';
+import { IonList, ToastController, AlertController, ModalController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage/storage.service';
+import { ModalMovimentoPage } from 'src/app/modals/modal-movimento/modal-movimento.page';
 
 @Component({
   selector: 'app-lista-movimentacoes',
@@ -16,7 +18,9 @@ export class ListaMovimentacoesPage implements OnInit {
 
   constructor(private storage: StorageService,
               private toastCtrl: ToastController,
-              private alertCtrl: AlertController) { }
+              private alertCtrl: AlertController,
+              private modalCtrl: ModalController,
+              private datepipe: DatePipe) { }
 
   ngOnInit() {}
 
@@ -27,7 +31,7 @@ export class ListaMovimentacoesPage implements OnInit {
   refresh() {
     this.movimentos = [];
     this.storage
-      .getAll('movimentos')
+      .getAll('movimentacoes')
       .then((result: Movimentacao[]) => {
         this.movimentos = result;
       })
@@ -37,45 +41,13 @@ export class ListaMovimentacoesPage implements OnInit {
 
   async update(movimento: Movimentacao) {
 
-    const alert = await this.alertCtrl.create({
-      header: 'Atualização de Movimento',
-      inputs: [
-        {
-          name: 'entrada',
-          type: 'radio',
-          label: 'Entrada',
-          value: movimento.tipo,
-          checked: true
-        }
-      ],
-      buttons: [
-        {
-          text: 'Fechar',
-          role: 'fechar',
-          handler: () => { return; }
-        },
-        {
-          text: 'Atualizar',
-          role: 'atualizar',
-          handler: (data: Movimentacao) => {
-
-            data.id = movimento.id;
-
-            this.storage
-              .update(data, 'caixas')
-              .then(() => {
-                this.showToast('Caixa atualizado com sucesso!');
-                this.lista.closeSlidingItems();
-                this.refresh();
-              })
-              .catch((error) => {
-                this.showError(error);
-              });
-          }
-        }
-      ]
+    const modal1 = await this.modalCtrl.create({
+      component: ModalMovimentoPage,
+      componentProps:  {
+        registro: movimento
+      }
     });
-    await alert.present();
+    await modal1.present();
 
   }
 
@@ -83,7 +55,7 @@ export class ListaMovimentacoesPage implements OnInit {
 
     const alert1 = await this.alertCtrl.create({
       header: 'Aviso',
-      subHeader: 'Deseja excluir o movimento permanentemente?',
+      subHeader: 'Deseja excluir a movimentação permanentemente?',
       buttons: [
         {
           text: 'Não',
@@ -94,8 +66,8 @@ export class ListaMovimentacoesPage implements OnInit {
           text: 'Sim',
           role: 'sim',
           handler: () => {
-            this.storage.delete(movimento.id, 'movimentos').then(() => {
-              this.showToast('Movimento excluído');
+            this.storage.delete(movimento.id, 'movimentacoes').then(() => {
+              this.showToast('Movimentação excluída');
               this.lista.closeSlidingItems();
               this.refresh();
             });

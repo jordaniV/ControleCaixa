@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Cadastro Movimentações</ion-title>
+    <ion-title>Movimentações</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -26,7 +26,7 @@
     <ion-item>
       <ion-label position="stacked" color="primary">Data</ion-label>
       <ion-datetime formControlName="data" cancel-text="Fechar" done-text="Ok" placeholder="Selecione a data"
-        displayFormat="DD/MM/YYYY"></ion-datetime>
+        display-format="DD/MM/YYYY" picker-format="DD/MM/YYYY"></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label position="stacked" color="primary">Caixa</ion-label>
@@ -37,8 +37,7 @@
     </ion-item>
 
     <br>
-    <ion-button expand="block" type="submit" [disabled]="movimentoForm.invalid">Cadastrar</ion-button>
-    <br>
+    <ion-button expand="block" type="submit" [disabled]="movimentoForm.invalid">Salvar</ion-button>
     <ion-button expand="block" (click)="fechar()">Fechar</ion-button>
 
   </form>

@@ -1,3 +1,4 @@
+import { Movimentacao } from './../../domains/movimentacao';
 import { ModalMovimentoPage } from './../../modals/modal-movimento/modal-movimento.page';
 import { ModalCaixaPage } from './../../modals/modal-caixa/modal-caixa.page';
 import { Component } from '@angular/core';
@@ -13,6 +14,7 @@ import { StorageService } from 'src/app/services/storage/storage.service';
 export class HomePage {
 
   public caixa: Caixa;
+  movimento: Movimentacao;
 
   constructor(private alertCtrl: AlertController,
               private toastCtrl: ToastController,
