@@ -15,12 +15,13 @@ export class ListaMovimentacoesPage implements OnInit {
 
   @ViewChild('lista') lista: IonList;
 
-  constructor(private storage: StorageService,
-              private toastCtrl: ToastController,
-              private alertCtrl: AlertController,
-              private modalCtrl: ModalController) { }
+  constructor(
+    private storage: StorageService,
+    private toastCtrl: ToastController,
+    private alertCtrl: AlertController,
+    private modalCtrl: ModalController) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ionViewWillEnter() {
     this.refresh();
@@ -36,6 +37,17 @@ export class ListaMovimentacoesPage implements OnInit {
       })
       .catch((error) => { this.showError(error); });
 
+  }
+
+  async update(movimento: Movimentacao) {
+
+    const modal1 = await this.modalCtrl.create({
+      component: ModalMovimentoPage,
+      componentProps: {
+        registro: movimento
+      }
+    });
+    await modal1.present();
   }
 
   async delete(movimento: Movimentacao) {

@@ -15,6 +15,8 @@ export class HomePage {
 
   public caixa: Caixa;
   movimento: Movimentacao;
+  maisFiltro = false;
+  botaoMais = 'Expandir';
 
   constructor(private alertCtrl: AlertController,
               private toastCtrl: ToastController,
@@ -29,6 +31,16 @@ export class HomePage {
 
   openCaixa() {
     this.navCtrl.navigateForward('lista-caixas');
+  }
+
+  abreFiltros() {
+    if (this.maisFiltro) {
+      this.maisFiltro = false;
+      this.botaoMais = 'Expandir';
+    } else {
+      this.maisFiltro = true;
+      this.botaoMais = 'Recolher';
+    }
   }
 
   async addCaixa() {

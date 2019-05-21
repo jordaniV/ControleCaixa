@@ -20,6 +20,10 @@
           <p>ID: {{ movimento.id }}</p>
       </ion-label>
 
+      <ion-button fill="clear" slot="end" (click)="update(movimento)">
+        <ion-icon slot="icon-only" name="refresh"></ion-icon>
+      </ion-button>
+
       <ion-button fill="clear" slot="end" (click)="delete(movimento)">
         <ion-icon slot="icon-only" color="danger" name="trash"></ion-icon>
       </ion-button>

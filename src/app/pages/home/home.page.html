@@ -32,7 +32,8 @@
   <div class="ion-padding">
 
     <ion-card-title>Filtros</ion-card-title>
-    <ion-grid>
+    <ion-button class="btn-mais" fill="clear" color="primary" (click)="abreFiltros()">{{ botaoMais }}</ion-button>
+    <ion-grid *ngIf="maisFiltro">
       <ion-row>
         <ion-col>
           <ion-select placeholder="Ano" interface="popover">
