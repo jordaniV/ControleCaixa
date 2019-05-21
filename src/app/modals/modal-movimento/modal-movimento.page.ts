@@ -1,10 +1,9 @@
 import { Movimentacao } from './../../domains/movimentacao';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { ModalController, ToastController, AlertController, NavParams } from '@ionic/angular';
+import { ModalController, ToastController, AlertController, NavParams, NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Caixa } from 'src/app/domains/caixa';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-modal-movimento',
@@ -17,6 +16,7 @@ export class ModalMovimentoPage implements OnInit {
 
   movimento: Movimentacao;
   caixas: Caixa[];
+  caixaAtual = '';
   ehupdate = false;
 
   tipos = [
@@ -32,6 +32,7 @@ export class ModalMovimentoPage implements OnInit {
 
   constructor(
     private navParams: NavParams,
+    private navCtrl: NavController,
     private modalCtrl: ModalController,
     private toastCtrl: ToastController,
     private alertCtrl: AlertController,
@@ -54,7 +55,6 @@ export class ModalMovimentoPage implements OnInit {
       });
 
     this.movimento = this.navParams.get('registro');
-    console.log(this.movimento);
     if (this.movimento !== undefined) {
       this.movimentoForm.get('tipo').setValue(this.movimento.tipo);
       this.movimentoForm.get('descricao').setValue(this.movimento.descricao);
@@ -62,7 +62,10 @@ export class ModalMovimentoPage implements OnInit {
       this.movimentoForm.get('data').setValue(this.movimento.data);
       this.movimentoForm.get('caixa').setValue(this.movimento.caixa);
       this.movimentoForm.get('id').setValue(this.movimento.id);
+      this.caixaAtual = this.movimento.caixa;
       this.ehupdate = true;
+    } else {
+      this.caixaAtual = 'Não existe.';
     }
   }
 
@@ -70,13 +73,13 @@ export class ModalMovimentoPage implements OnInit {
     const formMovimento = this.movimentoForm.value;
     // const data = this.datepipe.transform(formMovimento.data, 'dd/MM/yyyy');
     // formMovimento.data = data;
-    console.log(formMovimento);
 
     if (this.ehupdate) {
       this.storage
         .update(formMovimento, 'movimentacoes')
         .then(() => {
           this.showToast('Movimentação atualizada com sucesso!');
+          this.navCtrl.navigateRoot('home');
           this.fechar();
         })
         .catch((error: Error) => {

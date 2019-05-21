@@ -18,13 +18,14 @@ export class ListaMovimentacoesPage implements OnInit {
   constructor(private storage: StorageService,
               private toastCtrl: ToastController,
               private alertCtrl: AlertController,
-              private modalCtrl: ModalController) { this.refresh(); }
+              private modalCtrl: ModalController) { }
 
   ngOnInit() {}
 
   ionViewWillEnter() {
     this.refresh();
   }
+
 
   refresh() {
     // this.movimentos = [];
@@ -46,7 +47,6 @@ export class ListaMovimentacoesPage implements OnInit {
       }
     });
     await modal1.present();
-
   }
 
   async delete(movimento: Movimentacao) {

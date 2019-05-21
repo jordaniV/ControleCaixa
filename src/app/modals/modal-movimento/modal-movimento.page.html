@@ -29,9 +29,9 @@
         displayFormat="DD/MM/YYYY"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked" color="primary">Caixa</ion-label>
+      <ion-label position="stacked" color="primary">Caixa Atual: {{ caixaAtual }}</ion-label>
       <ion-select formControlName="caixa" placeholder="Selecione o caixa" interface="popover">
-        <ion-select-option ngDefaultControl *ngFor="let caixa of caixas" value="{{ caixa.descricao }}">
+        <ion-select-option *ngFor="let caixa of caixas" value="{{ caixa.descricao }}">
           {{ caixa.descricao }}</ion-select-option>
       </ion-select>
     </ion-item>
