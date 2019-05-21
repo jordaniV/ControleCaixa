@@ -38,17 +38,6 @@ export class ListaMovimentacoesPage implements OnInit {
 
   }
 
-  async update(movimento: Movimentacao) {
-
-    const modal1 = await this.modalCtrl.create({
-      component: ModalMovimentoPage,
-      componentProps:  {
-        registro: movimento
-      }
-    });
-    await modal1.present();
-  }
-
   async delete(movimento: Movimentacao) {
 
     const alert1 = await this.alertCtrl.create({

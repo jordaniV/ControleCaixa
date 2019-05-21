@@ -24,55 +24,6 @@ export class ListaCaixasPage implements OnInit {
     this.refresh();
   }
 
-  async update(caixa: Caixa) {
-
-    const alert = await this.alertCtrl.create({
-      header: 'Atualização de Caixa',
-      inputs: [
-        {
-          name: 'descricao',
-          type: 'text',
-          value: caixa.descricao
-        },
-        {
-          name: 'saldoInicial',
-          type: 'number',
-          value: caixa.saldoInicial
-        }
-      ],
-      buttons: [
-        {
-          text: 'Fechar',
-          role: 'fechar',
-          handler: () => { return; }
-        },
-        {
-          text: 'Atualizar',
-          role: 'atualizar',
-          handler: (data: Caixa) => {
-
-            data.id = caixa.id;
-
-            this.storage
-              .update(data, 'caixas')
-              .then(() => {
-                this.showToast('Caixa atualizado com sucesso!');
-                this.lista.closeSlidingItems();
-                this.refresh();
-              })
-              .catch((error) => {
-                this.showError(error);
-              });
-          }
-        }
-      ]
-    });
-    await alert.present();
-
-
-
-  }
-
   async delete(caixa: Caixa) {
 
     const alert1 = await this.alertCtrl.create({
