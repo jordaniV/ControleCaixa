@@ -37,36 +37,21 @@
       <ion-row>
         <ion-col>
           <ion-select placeholder="Ano" interface="popover">
-            <ion-select-option value="2017">2017</ion-select-option>
-            <ion-select-option value="2018">2018</ion-select-option>
-            <ion-select-option value="2019">2019</ion-select-option>
+            <ion-select-option *ngFor="let ano of anos" value="{{ ano }}}">{{ ano }}</ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-select placeholder="Mês" interface="popover">
-            <ion-select-option value="janeiro">Janeiro</ion-select-option>
-            <ion-select-option value="fevereiro">Fevereiro</ion-select-option>
-            <ion-select-option value="março">Março</ion-select-option>
-            <ion-select-option value="abril">Abril</ion-select-option>
-            <ion-select-option value="maio">Maio</ion-select-option>
-            <ion-select-option value="junho">Junho</ion-select-option>
-            <ion-select-option value="julho">Julho</ion-select-option>
-            <ion-select-option value="agosto">Agosto</ion-select-option>
-            <ion-select-option value="setembro">Setembro</ion-select-option>
-            <ion-select-option value="outubro">Outubro</ion-select-option>
-            <ion-select-option value="novembro">Novembro</ion-select-option>
-            <ion-select-option value="dezembro">Dezembro</ion-select-option>
+            <ion-select-option *ngFor="let mes of meses" value="{{ mes.valor }}">{{ mes.mes }}</ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <ion-select placeholder="Caixa" interface="popover">
-            <ion-select-option value="1">1</ion-select-option>
-            <ion-select-option value="2">2</ion-select-option>
-            <ion-select-option value="3">3</ion-select-option>
+            <ion-select-option *ngFor="let caixa of caixas" value="{{ caixa.descricao }}">{{ caixa.descricao }}</ion-select-option>
           </ion-select>
         </ion-col>
       </ion-row>
