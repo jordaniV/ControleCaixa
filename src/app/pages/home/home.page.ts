@@ -20,10 +20,12 @@ export class HomePage {
   caixa: Caixa;
   caixas: Caixa[];
   movimento: Movimentacao;
+  movimentosMes: Movimentacao[];
   anos = [];
   maisFiltro = false;
   botaoMais = 'Expandir';
 
+  id  = 0;
   saldoEntrada = 0;
   saldoSaida = 0;
   saldoFinal = 0;
@@ -58,7 +60,7 @@ export class HomePage {
   // EFETUA A PESQUISA E LISTAGEM DE ENTRADAS E SAIDAS DO MES A PARTIR DOS FILTROS SELECIONADOS
   pesquisar() {
     const formFiltro = this.filtroForm.value;
-    let id = 0;
+    this.id = 0;
     this.saldoEntrada = 0;
     this.saldoSaida = 0;
     this.saldoFinal = 0;
@@ -66,9 +68,9 @@ export class HomePage {
     this.storage
       .getAllByFiltros('movimentacoes', formFiltro)
       .then((resultFiltro: Movimentacao[]) => {
-
+        this.movimentosMes = resultFiltro;
         for (const i of resultFiltro) {
-          id = i.id;
+          this.id = i.id;
           if (i.tipo === 'E') {
             this.saldoEntrada = this.saldoEntrada + i.valor;
           } else if (i.tipo === 'S') {

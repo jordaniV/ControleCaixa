@@ -29,7 +29,7 @@
     </ion-row>
   </ion-grid>
 
-  <div class="ion-padding">
+  <!--<div class="ion-padding">-->
 
     <ion-card-title>Filtros</ion-card-title>
     <ion-button class="btn-mais" fill="clear" color="primary" (click)="abreFiltros()">{{ botaoMais }}</ion-button>
@@ -96,22 +96,16 @@
     </ion-card>
 
     <br>
-    <ion-card-title>Histórico Movimentações Mês</ion-card-title>
+    <ion-card-title>Histórico Movimentações Mês </ion-card-title>
     <br>
     <ion-grid>
-      <ion-row>
+      <ion-row *ngFor="let movimentoMes of movimentosMes">
         <ion-col>
-          <ion-item lines="full">
-            <ion-label>Descrição 1 + Valor 1</ion-label>
-          </ion-item>
-          <ion-item lines="full">
-            <ion-label>Descrição 2 + Valor 2</ion-label>
-          </ion-item>
-          <ion-item lines="full">
-            <ion-label>Descrição 3 + Valor 3</ion-label>
+          <ion-item class="item-historico" lines="none">
+            <ion-label>{{ movimentoMes.tipo }} - {{ movimentoMes.descricao }} -  R$ {{ movimentoMes.valor }}</ion-label>
           </ion-item>
         </ion-col>
       </ion-row>
     </ion-grid>
-  </div>
+  <!--</div>-->
 </ion-content>

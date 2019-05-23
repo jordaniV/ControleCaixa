@@ -57,7 +57,7 @@ export class StorageService {
           anos.push(ano);
         }
         // tslint:disable-next-line:only-arrow-functions
-        novArr = anos.filter(function (este, ii) {
+        novArr = anos.filter(function(este, ii) {
           return anos.indexOf(este) === ii;
         });
         return novArr;
