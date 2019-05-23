@@ -1,7 +1,7 @@
 export interface Movimentacao {
     id: number;
     data: Date;
-    tipo: number;
+    tipo: string;
     descricao: string;
     valor: number;
     caixa: string;

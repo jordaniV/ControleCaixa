@@ -18,10 +18,28 @@ export class StorageService {
   getAll(KEY: string): Promise<any> {
     return this.storage
       .get(KEY)
-      .then((items: Caixa[]) => {
+      .then((items: any[]) => {
         return items;
       });
   }
+
+  /*getById(KEY: string, id: number) {
+    return this.storage
+      .get(KEY)
+      .then((items: any[]) => {
+        if (!items || items.length === 0) {
+          return null;
+        }
+
+        const arrayId: any[] = [];
+
+        for (const i of items) {
+            arrayId.push(i);
+        }
+        return arrayId;
+      });
+  }*/
+
 
   getAllAno(KEY: string) {
     return this.storage
@@ -39,14 +57,14 @@ export class StorageService {
           anos.push(ano);
         }
         // tslint:disable-next-line:only-arrow-functions
-        novArr = anos.filter(function(este, ii) {
+        novArr = anos.filter(function (este, ii) {
           return anos.indexOf(este) === ii;
         });
         return novArr;
 
       });
   }
-  getAllMes(KEY: string) {
+  getAllByFiltros(KEY: string, filtros: any) {
     return this.storage
       .get(KEY)
       .then((items: Movimentacao[]) => {
@@ -54,19 +72,19 @@ export class StorageService {
           return null;
         }
 
-        const mes: any[] = [];
-        let novArrAno: any[] = [];
+        const dadosFiltrados: Movimentacao[] = [];
 
         for (const i of items) {
-          const ano = this.datepipe.transform(i.data, 'MM');
-          mes.push(ano);
-        }
-        // tslint:disable-next-line:only-arrow-functions
-        novArrAno = mes.filter(function(este, ii) {
-          return mes.indexOf(este) === ii;
-        });
-        return novArrAno;
+          const ano = this.datepipe.transform(i.data, 'yyyy');
+          const mes = this.datepipe.transform(i.data, 'MM');
+          const caixa = i.caixa;
 
+          if (ano === filtros.ano && mes === filtros.mes && caixa === filtros.caixa) {
+            dadosFiltrados.push(i);
+            console.log(dadosFiltrados);
+          } else { }
+        }
+        return dadosFiltrados;
       });
   }
 
