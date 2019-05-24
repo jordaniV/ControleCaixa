@@ -1,3 +1,4 @@
+import { ListaMovimentacoesPage } from './../lista-movimentacoes/lista-movimentacoes/lista-movimentacoes.page';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Movimentacao } from './../../domains/movimentacao';
 import { ModalMovimentoPage } from './../../modals/modal-movimento/modal-movimento.page';
@@ -23,12 +24,16 @@ export class HomePage {
   movimentosMes: Movimentacao[];
   anos = [];
   maisFiltro = false;
+  ehNegativo = false;
   botaoMais = 'Expandir';
 
-  id  = 0;
+  id = 0;
   saldoEntrada = 0;
   saldoSaida = 0;
   saldoFinal = 0;
+  saldoEntradaGeral = 0;
+  saldoSaidaGeral = 0;
+  saldoFinalGeral = 0;
 
   meses = [
     { mes: 'Janeiro', valor: '01' }, { mes: 'Fevereiro', valor: '02' }, { mes: 'Março', valor: '03' },
@@ -58,7 +63,7 @@ export class HomePage {
   }
 
   // EFETUA A PESQUISA E LISTAGEM DE ENTRADAS E SAIDAS DO MES A PARTIR DOS FILTROS SELECIONADOS
-  pesquisar() {
+  mostardaMovimentacaoMes() {
     const formFiltro = this.filtroForm.value;
     this.id = 0;
     this.saldoEntrada = 0;
@@ -78,7 +83,35 @@ export class HomePage {
           }
         }
         this.saldoFinal = this.saldoEntrada - this.saldoSaida;
-      });
+      })
+      .catch((error: Error) => { this.showError(error); });
+  }
+
+  mostraBalancoGeral() {
+
+    this.saldoEntradaGeral = 0;
+    this.saldoSaidaGeral = 0;
+    this.saldoFinalGeral = 0;
+
+    this.storage
+      .getAll('movimentacoes')
+      .then((resultGeral: Movimentacao[]) => {
+        for (const i of resultGeral) {
+          if (i.tipo === 'E') {
+            this.saldoEntradaGeral = this.saldoEntradaGeral + i.valor;
+          } else if (i.tipo === 'S') {
+            this.saldoSaidaGeral = this.saldoSaidaGeral + i.valor;
+          }
+        }
+        this.saldoFinalGeral = this.saldoEntradaGeral - this.saldoSaidaGeral;
+
+        if (this.saldoFinalGeral < 0) {
+          this.ehNegativo = true;
+        } else {
+          this.ehNegativo = false;
+        }
+      })
+      .catch((error: Error) => { this.showError(error); });
   }
 
   // ABRE A LISTAGEM DE MOVIMENTAÇÕES

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Movimentacao } from './../../../domains/movimentacao';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonList, ToastController, AlertController, ModalController } from '@ionic/angular';
@@ -19,11 +20,16 @@ export class ListaMovimentacoesPage implements OnInit {
     private storage: StorageService,
     private toastCtrl: ToastController,
     private alertCtrl: AlertController,
-    private modalCtrl: ModalController) { }
+    private modalCtrl: ModalController,
+    private datepipe: DatePipe) { }
 
   ngOnInit() { }
 
   ionViewWillEnter() {
+    this.refresh();
+  }
+
+  ionViewWillLeave() {
     this.refresh();
   }
 
@@ -37,6 +43,54 @@ export class ListaMovimentacoesPage implements OnInit {
       })
       .catch((error) => { this.showError(error); });
 
+  }
+
+  // MOSTRA TODOS OS DADOS DA MOVIMENTAÇÃO
+  async mostraMovimento(movimento: Movimentacao) {
+
+    const data = this.datepipe.transform(movimento.data, 'dd/MM/yyyy');
+
+    const alert1 = await this.alertCtrl.create({
+      inputs: [
+        {
+          type: 'text',
+          value: 'ID: ' + movimento.id
+        },
+        {
+          label: 'Descrição',
+          type: 'text',
+          value: 'Descrição: ' +  movimento.descricao
+        },
+        {
+          label: 'Tipo',
+          type: 'text',
+          value: 'Tipo: ' +  movimento.tipo
+        },
+        {
+          label: 'Valor',
+          type: 'text',
+          value: 'R$ ' + movimento.valor
+        },
+        {
+          label: 'Data',
+          type: 'text',
+          value: data
+        },
+        {
+          label: 'Caixa',
+          type: 'text',
+          value: 'Caixa: ' +  movimento.caixa
+        },
+      ],
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            return; }
+        }
+      ]
+    });
+    await alert1.present();
   }
 
   async update(movimento: Movimentacao) {

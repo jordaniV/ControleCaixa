@@ -31,81 +31,84 @@
 
   <!--<div class="ion-padding">-->
 
-    <ion-card-title>Filtros</ion-card-title>
-    <ion-button class="btn-mais" fill="clear" color="primary" (click)="abreFiltros()">{{ botaoMais }}</ion-button>
-    <form [formGroup]="filtroForm" (ngSubmit)="pesquisar()">
-      <ion-grid *ngIf="maisFiltro">
-        <ion-row>
-          <ion-col>
-            <ion-select formControlName="ano" placeholder="Ano" interface="popover">
-              <ion-select-option *ngFor="let ano of anos" value="{{ ano }}">{{ ano }}</ion-select-option>
-            </ion-select>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-select formControlName="mes" placeholder="Mês" interface="popover">
-              <ion-select-option *ngFor="let mes of meses" value="{{ mes.valor }}">{{ mes.mes }}</ion-select-option>
-            </ion-select>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-select formControlName="caixa" placeholder="Caixa" interface="popover">
-              <ion-select-option *ngFor="let caixa of caixas" value="{{ caixa.descricao }}">{{ caixa.descricao }}
-              </ion-select-option>
-            </ion-select>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-button expand="block" size="small" color="primary" type="submit" [disabled]="filtroForm.invalid">Atualizar</ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </form>
-
-    <br>
-    <ion-card-title>Movimentações</ion-card-title>
-    <ion-card>
-      <ion-card-header>
-        <ion-card-subtitle>Entradas e Saídas do Mês</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-label>Entradas: {{ saldoEntrada }}</ion-label>
-        <br>
-        <ion-label>Saídas: {{ saldoSaida }}</ion-label>
-        <br>
-        <br>
-        <ion-label>Saldo: {{ saldoFinal }}</ion-label>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card>
-      <ion-card-header>
-        <ion-card-subtitle>Balanço Geral</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-label>Entradas: 185.000,00</ion-label>
-        <br>
-        <ion-label>Saídas: 55.000,00</ion-label>
-        <br>
-        <br>
-        <ion-label>Saldo: 130.000,00</ion-label>
-      </ion-card-content>
-    </ion-card>
-
-    <br>
-    <ion-card-title>Histórico Movimentações Mês </ion-card-title>
-    <br>
-    <ion-grid>
-      <ion-row *ngFor="let movimentoMes of movimentosMes">
+  <ion-card-title>Filtros</ion-card-title>
+  <ion-button class="btn-mais" fill="clear" color="primary" (click)="abreFiltros()">{{ botaoMais }}</ion-button>
+  <form [formGroup]="filtroForm" (ngSubmit)="mostardaMovimentacaoMes()">
+    <ion-grid *ngIf="maisFiltro">
+      <ion-row>
         <ion-col>
-          <ion-item class="item-historico" lines="none">
-            <ion-label>{{ movimentoMes.tipo }} - {{ movimentoMes.descricao }} -  R$ {{ movimentoMes.valor }}</ion-label>
-          </ion-item>
+          <ion-select formControlName="ano" placeholder="Ano" interface="popover">
+            <ion-select-option *ngFor="let ano of anos" value="{{ ano }}">{{ ano }}</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-select formControlName="mes" placeholder="Mês" interface="popover">
+            <ion-select-option *ngFor="let mes of meses" value="{{ mes.valor }}">{{ mes.mes }}</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-select formControlName="caixa" placeholder="Caixa" interface="popover">
+            <ion-select-option *ngFor="let caixa of caixas" value="{{ caixa.descricao }}">{{ caixa.descricao }}
+            </ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" size="small" color="primary" type="submit" [disabled]="filtroForm.invalid">
+            Atualizar</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
+  </form>
+
+  <br>
+  <ion-card-title>Movimentações</ion-card-title>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Entradas e Saídas do Mês</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label>Entradas: {{ saldoEntrada }}</ion-label>
+      <br>
+      <ion-label>Saídas: {{ saldoSaida }}</ion-label>
+      <br>
+      <br>
+      <ion-label>Saldo: {{ saldoFinal }}</ion-label>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Balanço Geral</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label>Entradas: {{ saldoEntradaGeral }}</ion-label>
+      <br>
+      <ion-label>Saídas: {{ saldoSaidaGeral }}</ion-label>
+      <br>
+      <br>
+      <ion-label [color]="!ehNegativo ? 'primary' : 'danger'">Saldo: {{ saldoFinalGeral }}</ion-label>
+      <br>
+      <ion-button expand="block" size="small" fill="outline" (click)="mostraBalancoGeral()">Atualizar</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <br>
+  <ion-card-title>Histórico Movimentações Mês </ion-card-title>
+  <br>
+  <ion-grid>
+    <ion-row *ngFor="let movimentoMes of movimentosMes">
+      <ion-col>
+        <ion-item class="item-historico" lines="none">
+          <ion-label>{{ movimentoMes.tipo }} - {{ movimentoMes.descricao }} - R$ {{ movimentoMes.valor }}</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <!--</div>-->
 </ion-content>
