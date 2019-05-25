@@ -17,6 +17,10 @@ import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { ModalMovimentoPageModule } from './modals/modal-movimento/modal-movimento.module';
 import { DatePipe } from '@angular/common';
 
+import { CurrencyMaskModule } from 'ngx-currency-mask';
+
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -28,6 +32,7 @@ import { DatePipe } from '@angular/common';
     ModalCaixaPageModule,
     ModalMovimentoPageModule,
     ReactiveFormsModule,
+    CurrencyMaskModule,
     FormsModule],
   providers: [
     StatusBar,

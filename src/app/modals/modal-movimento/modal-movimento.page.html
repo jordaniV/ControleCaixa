@@ -6,7 +6,7 @@
 
 <ion-content>
 
-  <form [formGroup]="movimentoForm" (ngSubmit)="add()">
+  <form [formGroup]="movimentoForm" (ngSubmit)="salvar()">
 
     <ion-item>
       <ion-label position="stacked" color="primary">Tipo</ion-label>
@@ -15,19 +15,23 @@
         </ion-select-option>
       </ion-select>
     </ion-item>
+    
     <ion-item>
       <ion-label position="stacked" color="primary">Descrição</ion-label>
       <ion-input formControlName="descricao" type="text"></ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label position="stacked" color="primary">Valor</ion-label>
-      <ion-input formControlName="valor" type="number"></ion-input>
+      <ion-input formControlName="valor" type="number" name="valor">R$ </ion-input>
     </ion-item>
+
     <ion-item>
       <ion-label position="stacked" color="primary">Data</ion-label>
       <ion-datetime formControlName="data" cancel-text="Fechar" done-text="Ok" placeholder="Selecione a data"
         displayFormat="DD/MM/YYYY"></ion-datetime>
     </ion-item>
+
     <ion-item>
       <ion-label position="stacked" color="primary">Caixa Atual: {{ caixaAtual }}</ion-label>
       <ion-select formControlName="caixa" placeholder="Selecione o caixa" interface="popover">

@@ -28,6 +28,7 @@ export class ModalCaixaPage implements OnInit {
   ngOnInit() {
   }
 
+  // ADICIONA NOVO CAIXA
   add() {
     const formCaixa = this.caixaForm.value; // PEGO OS DADOS DO FORMULARIO
     this.storage
@@ -50,10 +51,12 @@ export class ModalCaixaPage implements OnInit {
       });
   }
 
+  // FECHA O MODAL
   fechar() {
     this.modalCtrl.dismiss();
   }
 
+  // METODOS DE MENSAGEM AO USUARIO
   async showToast(msj) {
     const toast = await this.toastCtrl.create({
       message: msj,

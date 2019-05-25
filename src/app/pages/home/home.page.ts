@@ -18,15 +18,14 @@ export class HomePage {
 
   filtroForm: FormGroup;
 
+  movimento: Movimentacao;
   caixa: Caixa;
   caixas: Caixa[];
-  movimento: Movimentacao;
   movimentosMes: Movimentacao[];
   anos = [];
   maisFiltro = false;
   ehNegativo = false;
   botaoMais = 'Expandir';
-
   id = 0;
   saldoEntrada = 0;
   saldoSaida = 0;
@@ -34,6 +33,8 @@ export class HomePage {
   saldoEntradaGeral = 0;
   saldoSaidaGeral = 0;
   saldoFinalGeral = 0;
+  v = '';
+  vg = '';
 
   meses = [
     { mes: 'Janeiro', valor: '01' }, { mes: 'Fevereiro', valor: '02' }, { mes: 'Março', valor: '03' },
@@ -83,10 +84,12 @@ export class HomePage {
           }
         }
         this.saldoFinal = this.saldoEntrada - this.saldoSaida;
+        this.v = this.saldoFinal.toFixed(2);
       })
       .catch((error: Error) => { this.showError(error); });
   }
 
+  // EFETUA A LISTAGEM DE INFORMAÇÕES DO BALANÇP GERAL
   mostraBalancoGeral() {
 
     this.saldoEntradaGeral = 0;
@@ -104,6 +107,7 @@ export class HomePage {
           }
         }
         this.saldoFinalGeral = this.saldoEntradaGeral - this.saldoSaidaGeral;
+        this.vg = this.saldoFinalGeral.toFixed(2);
 
         if (this.saldoFinalGeral < 0) {
           this.ehNegativo = true;
@@ -144,7 +148,6 @@ export class HomePage {
       .then((result: any[]) => {
         this.anos = [];
         this.anos = result;
-        // this.carregando.dismiss();
       })
       .catch((error: Error) => { console.log(error); });
 

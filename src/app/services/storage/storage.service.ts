@@ -23,23 +23,6 @@ export class StorageService {
       });
   }
 
-  /*getById(KEY: string, id: number) {
-    return this.storage
-      .get(KEY)
-      .then((items: any[]) => {
-        if (!items || items.length === 0) {
-          return null;
-        }
-
-        const arrayId: any[] = [];
-
-        for (const i of items) {
-            arrayId.push(i);
-        }
-        return arrayId;
-      });
-  }*/
-
 
   getAllAno(KEY: string) {
     return this.storage

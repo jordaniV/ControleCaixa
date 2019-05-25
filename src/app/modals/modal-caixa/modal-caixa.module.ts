@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
+import { CurrencyMaskModule } from 'ngx-currency-mask';
 
 import { ModalCaixaPage } from './modal-caixa.page';
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    CurrencyMaskModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],

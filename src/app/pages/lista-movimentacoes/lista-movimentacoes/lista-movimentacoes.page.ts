@@ -93,6 +93,7 @@ export class ListaMovimentacoesPage implements OnInit {
     await alert1.present();
   }
 
+  // CHAMA O MODAL PARA ATUALIZAÇÃO
   async update(movimento: Movimentacao) {
 
     const modal1 = await this.modalCtrl.create({
@@ -104,6 +105,7 @@ export class ListaMovimentacoesPage implements OnInit {
     await modal1.present();
   }
 
+  // EXCLUIR A MOVIMENTAÇÃO
   async delete(movimento: Movimentacao) {
 
     const alert1 = await this.alertCtrl.create({

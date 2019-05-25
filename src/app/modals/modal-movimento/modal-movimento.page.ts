@@ -48,6 +48,7 @@ export class ModalMovimentoPage implements OnInit {
     });
   }
 
+  // INICIALIZA O SELECT COM OS CAIXAS CADASTRADOS E ADICIONA OS VALORES DO REGISTRO SELECIONADO FUTURA ATUALIZAÇÃO
   ngOnInit() {
     this.storage.getAll('caixas')
       .then((result: Caixa[]) => {
@@ -70,10 +71,9 @@ export class ModalMovimentoPage implements OnInit {
 
   }
 
-  add() {
+  // ESSE METODO SERVE TANTO PARA ADICIONAR NOVO QUANTO PARA ATUALIZAR UM REGISTRO
+  salvar() {
     const formMovimento = this.movimentoForm.value;
-    // const data = this.datepipe.transform(formMovimento.data, 'dd/MM/yyyy');
-    // formMovimento.data = data;
 
     if (this.ehupdate) {
       this.storage
@@ -102,10 +102,12 @@ export class ModalMovimentoPage implements OnInit {
     this.ehupdate = false;
     }
 
+// FECHHAR O MODAL
 fechar() {
   this.modalCtrl.dismiss();
 }
 
+// METODOS DE MENSAGEM AO USUARIO
 async showToast(msj) {
   const toast = await this.toastCtrl.create({
     message: msj,

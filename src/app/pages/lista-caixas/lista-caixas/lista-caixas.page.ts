@@ -14,7 +14,8 @@ export class ListaCaixasPage implements OnInit {
 
   @ViewChild('lista') lista: IonList;
 
-  constructor(private storage: StorageService,
+  constructor(
+    private storage: StorageService,
     private toastCtrl: ToastController,
     private alertCtrl: AlertController) { }
 
@@ -24,6 +25,7 @@ export class ListaCaixasPage implements OnInit {
     this.refresh();
   }
 
+  // ATUALIZA CAIXA
   async update(caixa: Caixa) {
 
     const alert = await this.alertCtrl.create({
@@ -68,11 +70,9 @@ export class ListaCaixasPage implements OnInit {
       ]
     });
     await alert.present();
-
-
-
   }
 
+  // EXCLUI CAIXA
   async delete(caixa: Caixa) {
 
     const alert1 = await this.alertCtrl.create({
@@ -88,19 +88,22 @@ export class ListaCaixasPage implements OnInit {
           text: 'Sim',
           role: 'sim',
           handler: () => {
-            this.storage.delete(caixa.id, 'caixas').then(() => {
-              this.showToast('Caixa excluído');
-              this.lista.closeSlidingItems();
-              this.refresh();
-            });
+            this.storage
+              .delete(caixa.id, 'caixas')
+              .then(() => {
+                this.showToast('Caixa excluído');
+                this.lista.closeSlidingItems();
+                this.refresh();
+              });
           }
         }
       ]
     });
-
+    this.refresh();
     alert1.present();
   }
 
+  // ATUALIZA OS CAMPOS NA TELA
   refresh() {
     this.caixas = [];
     this.storage

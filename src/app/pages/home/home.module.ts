@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
+import { BrMaskerModule } from 'br-mask';
 import { HomePage } from './home.page';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    BrMaskerModule,
     IonicModule,
     RouterModule.forChild([
       {
